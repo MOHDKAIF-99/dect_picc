@@ -59,7 +59,7 @@ const detectiveClues = [
     options: [
       "I didn't realize someone was paying this much attention ✦",
       "I look pretty classic in black and white, not going to lie",
-      "You picked two really good ones of me
+      "You picked two really good ones of me "
     ]
   },
   {
