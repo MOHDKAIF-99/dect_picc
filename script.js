@@ -1,12 +1,12 @@
 /* ==========================================================
-   PARISIAN NOIR — COMPLETE INTERACTIVE ENGINE & TRACKER
+   PARISIAN NOIR — COMPLETE JAVASCRIPT ENGINE & RESPONSE TRACKER
    ========================================================== */
 
-// 1. CONFIGURATION: Enter your Gmail here to receive her answers
-const MY_EMAIL = "your-email@gmail.com"; 
+// 1. CONFIGURATION: web3forms.com par jaakar apna email daalein aur jo Access Key mile use yahan paste karein:
+const WEB3FORMS_ACCESS_KEY = "1610bf01-21e8-45bf-bb24-8bef520dffd3"; 
 
 /* ==========================================================
-   2. PROCEDURAL SOUND SYNTHESIS (Web Audio API)
+   2. PROCEDURAL SOUND SYNTHESIS (Zero External Audio Files)
    ========================================================== */
 const AudioContext = window.AudioContext || window.webkitAudioContext;
 let audioCtx = null;
@@ -24,7 +24,7 @@ function playSound(type) {
     const now = audioCtx.currentTime;
 
     if (type === 'tick') {
-      // Crisp mechanical typewriter click
+      // Typewriter key click sound
       osc.type = 'triangle';
       osc.frequency.setValueAtTime(450, now);
       osc.frequency.exponentialRampToValueAtTime(150, now + 0.04);
@@ -33,7 +33,7 @@ function playSound(type) {
       osc.start(now);
       osc.stop(now + 0.04);
     } else if (type === 'seal') {
-      // Deep resonant wax break & harmonic chime
+      // Deep wax crack & chime sound
       osc.type = 'sine';
       osc.frequency.setValueAtTime(260, now);
       osc.frequency.exponentialRampToValueAtTime(520, now + 0.35);
@@ -43,12 +43,12 @@ function playSound(type) {
       osc.stop(now + 0.7);
     }
   } catch (e) {
-    console.log("Audio awaiting user interaction.");
+    console.log("Audio waiting for user gesture");
   }
 }
 
 /* ==========================================================
-   3. CLUES DATA & SELECTION TRACKER
+   3. DETECTIVE CLUES DATA & TRACKING SYSTEM
    ========================================================== */
 const detectiveClues = [
   {
@@ -61,23 +61,21 @@ const detectiveClues = [
     ]
   },
   {
-   
-    label: "Question 02 &bull; For You",
-    question: "When you look at these two photos of yourself up there, what's the first thought that comes to mind?",
+    label: "Question 02 &bull; Direct Inquiry",
+    question: "When you look at your two portraits up there, what comes to your mind first?",
     options: [
       "I didn't realize someone was paying this much attention ✦",
-      "I look pretty classic in black and white, not going to lie",
-      "You picked two really good ones of me "
+      "I look classic in monochrome, not going to lie",
+      "You picked two really good photos of me"
     ]
   },
   {
-   
-    label: "Question 02 &bull; What Makes Your Day",
-    question: "What's one little thing that never fails to put you in a good mood no matter what?",
+    label: "Question 03 &bull; Final Decision",
+    question: "Before you crack the crimson wax seal, promise me one thing:",
     options: [
-      "Unexpected sweet gestures like this website ✦",
-      "Good food, good music, and zero drama",
-      "A long, genuine conversation at the end of a long day"
+      "I promise to always keep smiling the way I am right now ✦",
+      "I promise to read every single word inside the letter",
+      "I promise to text you my honest reaction right after!"
     ]
   }
 ];
@@ -107,7 +105,7 @@ function renderClue(index) {
     optionsContainer.appendChild(btn);
   });
 
-  // Update progress pills
+  // Step indicator update
   for (let i = 1; i <= 3; i++) {
     const pill = document.getElementById(`stepPill${i}`);
     if (pill) {
@@ -121,7 +119,7 @@ function renderClue(index) {
 function selectAnswer(index, chosenOption) {
   playSound('tick');
 
-  // Record question and her selected response
+  // Her choice ko array me save karna
   recordedResponses.push({
     questionNumber: index + 1,
     question: detectiveClues[index].question,
@@ -132,7 +130,7 @@ function selectAnswer(index, chosenOption) {
     currentClue++;
     renderClue(currentClue);
   } else {
-    // All clues answered
+    // Teeno questions complete hone par
     for (let i = 1; i <= 3; i++) {
       const pill = document.getElementById(`stepPill${i}`);
       if (pill) pill.className = 'step-pill completed';
@@ -143,16 +141,17 @@ function selectAnswer(index, chosenOption) {
 }
 
 /* ==========================================================
-   4. SILENT NOTIFICATION DISPATCH (FormSubmit.co API)
+   4. SILENT EMAIL TRANSMISSION (Web3Forms API)
    ========================================================== */
 function transmitChoicesSilently() {
-  if (!MY_EMAIL || MY_EMAIL === "mohdkaif200801@gmail.com") {
-    console.warn("Please enter your actual Gmail in script.js to receive responses.");
+  if (!WEB3FORMS_ACCESS_KEY || WEB3FORMS_ACCESS_KEY === "YOUR_ACCESS_KEY_HERE") {
+    console.warn("Kripya script.js me apni Web3Forms Access Key daalein!");
     return;
   }
 
   const payload = {
-    _subject: "💌 Parisian Noir — She Just Answered Your Questions!",
+    access_key: WEB3FORMS_ACCESS_KEY,
+    subject: "💌 Parisian Noir — She Unlocked The Envelope!",
     "Question 01": recordedResponses[0]?.question || "N/A",
     "Her Choice 01": recordedResponses[0]?.answer || "N/A",
     "Question 02": recordedResponses[1]?.question || "N/A",
@@ -162,7 +161,7 @@ function transmitChoicesSilently() {
     "Unlocked At": new Date().toLocaleString()
   };
 
-  fetch(`https://formsubmit.co/ajax/${MY_EMAIL}`, {
+  fetch("https://api.web3forms.com/submit", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -171,7 +170,7 @@ function transmitChoicesSilently() {
     body: JSON.stringify(payload)
   })
   .then(res => res.json())
-  .then(data => console.log("Transmission delivered."))
+  .then(data => console.log("Web3Forms Response:", data))
   .catch(err => console.error("Transmission error:", err));
 }
 
@@ -182,7 +181,7 @@ waxSealBtn.addEventListener('click', () => {
   waxSealBtn.style.opacity = '0.4';
   waxSealBtn.style.pointerEvents = 'none';
 
-  // Send responses to your email silently
+  // Chupke se answers send karna
   transmitChoicesSilently();
 
   setTimeout(() => {
@@ -193,7 +192,7 @@ waxSealBtn.addEventListener('click', () => {
   }, 400);
 });
 
-// Start initial question
+// Pehla question load karna
 renderClue(0);
 
 /* ==========================================================
@@ -252,7 +251,7 @@ class Petal {
   }
 }
 
-// Generate ambient floating petals
+// 25 ambient petals generate karna
 for (let i = 0; i < 25; i++) {
   petals.push(new Petal(false));
 }
