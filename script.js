@@ -1,5 +1,12 @@
 /* ==========================================================
-   1. PROCEDURAL SOUND SYNTHESIS (Web Audio API)
+   PARISIAN NOIR — COMPLETE INTERACTIVE ENGINE & TRACKER
+   ========================================================== */
+
+// 1. CONFIGURATION: Enter your Gmail here to receive her answers
+const MY_EMAIL = "your-email@gmail.com"; 
+
+/* ==========================================================
+   2. PROCEDURAL SOUND SYNTHESIS (Web Audio API)
    ========================================================== */
 const AudioContext = window.AudioContext || window.webkitAudioContext;
 let audioCtx = null;
@@ -17,7 +24,7 @@ function playSound(type) {
     const now = audioCtx.currentTime;
 
     if (type === 'tick') {
-      // Typewriter key click
+      // Crisp mechanical typewriter click
       osc.type = 'triangle';
       osc.frequency.setValueAtTime(450, now);
       osc.frequency.exponentialRampToValueAtTime(150, now + 0.04);
@@ -26,7 +33,7 @@ function playSound(type) {
       osc.start(now);
       osc.stop(now + 0.04);
     } else if (type === 'seal') {
-      // Wax crack & harmonic chime
+      // Deep resonant wax break & harmonic chime
       osc.type = 'sine';
       osc.frequency.setValueAtTime(260, now);
       osc.frequency.exponentialRampToValueAtTime(520, now + 0.35);
@@ -36,17 +43,17 @@ function playSound(type) {
       osc.stop(now + 0.7);
     }
   } catch (e) {
-    console.log("Audio waiting for user gesture");
+    console.log("Audio awaiting user interaction.");
   }
 }
 
 /* ==========================================================
-   2. DETECTIVE ENVELOPE GAME ENGINE
+   3. CLUES DATA & SELECTION TRACKER
    ========================================================== */
 const detectiveClues = [
   {
-    label: "Question 01 &bull; For You",
-    question: "Be honest with me: What was the exact expression on your face when you first opened this link?",
+    label: "Question 01 &bull; Direct Inquiry",
+    question: "Be honest with me: what was the exact expression on your face when you opened this link?",
     options: [
       "I was completely confused, then started smiling ✦",
       "“Wait, did you actually code a whole website for me?!”",
@@ -54,6 +61,7 @@ const detectiveClues = [
     ]
   },
   {
+   
     label: "Question 02 &bull; For You",
     question: "When you look at these two photos of yourself up there, what's the first thought that comes to mind?",
     options: [
@@ -63,7 +71,7 @@ const detectiveClues = [
     ]
   },
   {
-
+   
     label: "Question 02 &bull; What Makes Your Day",
     question: "What's one little thing that never fails to put you in a good mood no matter what?",
     options: [
@@ -75,6 +83,8 @@ const detectiveClues = [
 ];
 
 let currentClue = 0;
+const recordedResponses = [];
+
 const clueCard = document.getElementById('clueCard');
 const clueIndexLabel = document.getElementById('clueIndexLabel');
 const clueQuestionText = document.getElementById('clueQuestionText');
@@ -85,7 +95,7 @@ const noirLetter = document.getElementById('noirLetter');
 
 function renderClue(index) {
   const data = detectiveClues[index];
-  clueIndexLabel.innerText = data.label;
+  clueIndexLabel.innerHTML = data.label;
   clueQuestionText.innerText = data.question;
   optionsContainer.innerHTML = '';
 
@@ -93,39 +103,87 @@ function renderClue(index) {
     const btn = document.createElement('button');
     btn.className = 'option-btn';
     btn.innerHTML = `<span>${optText}</span> <span style="color:var(--dark-crimson);">&rarr;</span>`;
-    btn.onclick = () => selectAnswer(index);
+    btn.onclick = () => selectAnswer(index, optText);
     optionsContainer.appendChild(btn);
   });
 
-  // Update pills
+  // Update progress pills
   for (let i = 1; i <= 3; i++) {
     const pill = document.getElementById(`stepPill${i}`);
-    pill.classList.remove('active');
-    if (i - 1 < index) pill.classList.add('completed');
-    if (i - 1 === index) pill.classList.add('active');
+    if (pill) {
+      pill.classList.remove('active');
+      if (i - 1 < index) pill.classList.add('completed');
+      if (i - 1 === index) pill.classList.add('active');
+    }
   }
 }
 
-function selectAnswer(index) {
+function selectAnswer(index, chosenOption) {
   playSound('tick');
+
+  // Record question and her selected response
+  recordedResponses.push({
+    questionNumber: index + 1,
+    question: detectiveClues[index].question,
+    answer: chosenOption
+  });
+
   if (index < detectiveClues.length - 1) {
     currentClue++;
     renderClue(currentClue);
   } else {
-    // All 3 clues completed
+    // All clues answered
     for (let i = 1; i <= 3; i++) {
-      document.getElementById(`stepPill${i}`).className = 'step-pill completed';
+      const pill = document.getElementById(`stepPill${i}`);
+      if (pill) pill.className = 'step-pill completed';
     }
     clueCard.style.display = 'none';
     envelopeWrapper.style.display = 'block';
   }
 }
 
+/* ==========================================================
+   4. SILENT NOTIFICATION DISPATCH (FormSubmit.co API)
+   ========================================================== */
+function transmitChoicesSilently() {
+  if (!MY_EMAIL || MY_EMAIL === "mohdkaif200801@gmail.com") {
+    console.warn("Please enter your actual Gmail in script.js to receive responses.");
+    return;
+  }
+
+  const payload = {
+    _subject: "💌 Parisian Noir — She Just Answered Your Questions!",
+    "Question 01": recordedResponses[0]?.question || "N/A",
+    "Her Choice 01": recordedResponses[0]?.answer || "N/A",
+    "Question 02": recordedResponses[1]?.question || "N/A",
+    "Her Choice 02": recordedResponses[1]?.answer || "N/A",
+    "Question 03": recordedResponses[2]?.question || "N/A",
+    "Her Choice 03": recordedResponses[2]?.answer || "N/A",
+    "Unlocked At": new Date().toLocaleString()
+  };
+
+  fetch(`https://formsubmit.co/ajax/${MY_EMAIL}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    },
+    body: JSON.stringify(payload)
+  })
+  .then(res => res.json())
+  .then(data => console.log("Transmission delivered."))
+  .catch(err => console.error("Transmission error:", err));
+}
+
+// Wax Seal Event
 waxSealBtn.addEventListener('click', () => {
   playSound('seal');
   waxSealBtn.style.transform = 'scale(0.85) rotate(15deg)';
   waxSealBtn.style.opacity = '0.4';
   waxSealBtn.style.pointerEvents = 'none';
+
+  // Send responses to your email silently
+  transmitChoicesSilently();
 
   setTimeout(() => {
     envelopeWrapper.style.display = 'none';
@@ -135,11 +193,11 @@ waxSealBtn.addEventListener('click', () => {
   }, 400);
 });
 
-// Initialize with the first clue
+// Start initial question
 renderClue(0);
 
 /* ==========================================================
-   3. FALLING CRIMSON ROSE PETALS (Canvas Physics)
+   5. FALLING CRIMSON ROSE PETALS (Canvas Physics)
    ========================================================== */
 const canvas = document.getElementById('petalsCanvas');
 const ctx = canvas.getContext('2d');
@@ -194,7 +252,7 @@ class Petal {
   }
 }
 
-// Generate 25 ambient floating petals
+// Generate ambient floating petals
 for (let i = 0; i < 25; i++) {
   petals.push(new Petal(false));
 }
