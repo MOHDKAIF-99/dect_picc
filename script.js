@@ -45,30 +45,31 @@ function playSound(type) {
    ========================================================== */
 const detectiveClues = [
   {
-    label: "Classified Exhibit 01",
-    question: "What is the suspect's most dangerous, room-stopping secret weapon?",
+    label: "Question 01 &bull; For You",
+    question: "Be honest with me: What was the exact expression on your face when you first opened this link?",
     options: [
-      "A smile that turns the entire room into full color ✦",
-      "Her effortless sense of elegance & humor",
-      "A laugh that is genuinely 100% contagious"
+      "I was completely confused, then started smiling ✦",
+      "“Wait, did you actually code a whole website for me?!”",
+      "Trying to act calm, but my heart definitely skipped a beat"
     ]
   },
   {
-    label: "Classified Exhibit 02",
-    question: "When captured on a 35mm Parisian camera, what stands out most?",
+    label: "Question 02 &bull; For You",
+    question: "When you look at these two photos of yourself up there, what's the first thought that comes to mind?",
     options: [
-      "Eyes that hold an entire mystery novel",
-      "An undeniable haute couture aura",
-      "Pure, authentic warmth that cannot be rehearsed ✦"
+      "I didn't realize someone was paying this much attention ✦",
+      "I look pretty classic in black and white, not going to lie",
+      "You picked two really good ones of me
     ]
   },
   {
-    label: "Classified Exhibit 03",
-    question: "Final Verdict: What is the official case summary?",
+
+    label: "Question 02 &bull; What Makes Your Day",
+    question: "What's one little thing that never fails to put you in a good mood no matter what?",
     options: [
-      "Guilty of being completely and effortlessly unforgettable ✦",
-      "Certified 10/10 in both elegance and charm",
-      "All of the above — no doubt about it"
+      "Unexpected sweet gestures like this website ✦",
+      "Good food, good music, and zero drama",
+      "A long, genuine conversation at the end of a long day"
     ]
   }
 ];
@@ -212,4 +213,5 @@ function animatePetals() {
   });
   requestAnimationFrame(animatePetals);
 }
+
 animatePetals();
