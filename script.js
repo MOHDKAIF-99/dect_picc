@@ -61,21 +61,23 @@ const detectiveClues = [
     ]
   },
   {
-    label: "Question 02 &bull; Direct Inquiry",
-    question: "When you look at your two portraits up there, what comes to your mind first?",
+    
+    label: "Question 02 &bull; For You",
+    question: "When you look at these two photos of yourself up there, what's the first thought that comes to mind?",
     options: [
       "I didn't realize someone was paying this much attention ✦",
-      "I look classic in monochrome, not going to lie",
-      "You picked two really good photos of me"
+      "I look pretty classic in black and white, not going to lie",
+      "You picked two really good ones of me "
     ]
   },
   {
-    label: "Question 03 &bull; Final Decision",
-    question: "Before you crack the crimson wax seal, promise me one thing:",
+    
+    label: "Question 02 &bull; What Makes Your Day",
+    question: "What's one little thing that never fails to put you in a good mood no matter what?",
     options: [
-      "I promise to always keep smiling the way I am right now ✦",
-      "I promise to read every single word inside the letter",
-      "I promise to text you my honest reaction right after!"
+      "Unexpected sweet gestures like this website ✦",
+      "Good food, good music, and zero drama",
+      "A long, genuine conversation at the end of a long day"
     ]
   }
 ];
