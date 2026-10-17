@@ -10,599 +10,15 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,700;0,6..96,900;1,6..96,400;1,6..96,700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
 
-  <style>
-    /* ==========================================================
-       PARISIAN NOIR DESIGN SYSTEM & VARIABLES
-       ========================================================== */
-    :root {
-      --jet-black: #080808;
-      --card-black: #121212;
-      --border-gray: #222222;
-      --border-hover: #3a3a3a;
-      --stark-chalk: #f5f5f3;
-      --muted-gray: #7a7a7a;
-      --dark-crimson: #990011;
-      --crimson-glow: #e6192d;
-      --parchment: #181614;
-      --font-serif: 'Bodoni Moda', 'Playfair Display', serif;
-      --font-sans: 'Plus Jakarta Sans', sans-serif;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    body {
-      background-color: var(--jet-black);
-      color: var(--stark-chalk);
-      font-family: var(--font-sans);
-      overflow-x: hidden;
-      min-height: 100vh;
-      line-height: 1.5;
-      position: relative;
-    }
-
-    /* Ambient Film Texture Overlay */
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
-      background-size: 28px 28px;
-      pointer-events: none;
-      z-index: 999;
-      opacity: 0.35;
-    }
-
-    /* Falling Crimson Rose Petals Canvas */
-    #petalsCanvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 90;
-    }
-
-    /* ==========================================================
-       NAVIGATION BAR
-       ========================================================== */
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1.25rem 5vw;
-      border-bottom: 1px solid var(--border-gray);
-      background: rgba(8, 8, 8, 0.85);
-      backdrop-filter: blur(12px);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-
-    .brand-logo {
-      font-family: var(--font-serif);
-      font-size: 1.2rem;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .brand-logo::before {
-      content: "";
-      display: inline-block;
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--crimson-glow);
-      box-shadow: 0 0 10px var(--crimson-glow);
-    }
-
-    .header-actions {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-
-    .badge-crimson {
-      background-color: var(--dark-crimson);
-      color: var(--stark-chalk);
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 0.15em;
-      padding: 0.4rem 0.9rem;
-      border-radius: 999px;
-      font-weight: 600;
-      box-shadow: 0 0 14px rgba(153, 0, 17, 0.5);
-    }
-
-    /* ==========================================================
-       HERO: MASSIVE SERIF EDITORIAL TITLE
-       ========================================================== */
-    .hero {
-      padding: 3.5rem 5vw 1.5rem;
-      max-width: 1300px;
-      margin: 0 auto;
-    }
-
-    .meta-tagline {
-      text-transform: uppercase;
-      color: var(--muted-gray);
-      font-size: 0.78rem;
-      letter-spacing: 0.28em;
-      margin-bottom: 1rem;
-      display: flex;
-      align-items: center;
-      gap: 0.8rem;
-    }
-
-    .meta-tagline::before {
-      content: "";
-      width: 28px;
-      height: 1px;
-      background-color: var(--dark-crimson);
-    }
-
-    .massive-headline {
-      font-family: var(--font-serif);
-      font-size: clamp(2.8rem, 7.5vw, 6.8rem);
-      line-height: 0.95;
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: -0.02em;
-      margin-bottom: 1.5rem;
-    }
-
-    .headline-italic {
-      font-style: italic;
-      color: #dededc;
-      font-weight: 400;
-    }
-
-    /* ==========================================================
-       ARTISTIC OVERLAPPING PHOTO GRID (2 SLOTS)
-       ========================================================== */
-    .photo-section {
-      max-width: 1250px;
-      margin: 1.5rem auto 4rem;
-      padding: 0 5vw;
-    }
-
-    .grid-duo {
-      display: grid;
-      grid-template-columns: 1.15fr 0.85fr;
-      gap: 3.5rem;
-      align-items: center;
-      position: relative;
-    }
-
-    .photo-frame {
-      position: relative;
-      background: var(--card-black);
-      border: 1px solid var(--border-gray);
-      padding: 12px;
-      border-radius: 4px;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
-      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .photo-container {
-      position: relative;
-      overflow: hidden;
-      width: 100%;
-      border-radius: 2px;
-      background-color: #050505;
-    }
-
-    /* Primary Portrait (Slot 1) */
-    .photo-frame.primary {
-      z-index: 2;
-    }
-    .photo-frame.primary .photo-container {
-      height: 480px;
-    }
-
-    /* Secondary Overlapping Frame (Slot 2) */
-    .photo-frame.secondary {
-      z-index: 3;
-      margin-top: 5rem;
-      transform: translateX(-18%);
-      border-color: #2e2e2e;
-    }
-    .photo-frame.secondary .photo-container {
-      height: 380px;
-    }
-
-    /* Photo Filmic Grayscale -> Full Bloom on Hover */
-    .photo-container img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      filter: grayscale(100%) contrast(115%) brightness(92%);
-      transition: filter 0.8s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-      display: block;
-    }
-
-    .photo-frame:hover {
-      border-color: var(--dark-crimson);
-      transform: translateY(-8px);
-      box-shadow: 0 25px 50px rgba(153, 0, 17, 0.25);
-    }
-
-    .photo-frame.secondary:hover {
-      transform: translateX(-18%) translateY(-8px);
-      box-shadow: -15px 25px 50px rgba(153, 0, 17, 0.3);
-    }
-
-    .photo-frame:hover .photo-container img {
-      filter: grayscale(0%) contrast(105%) brightness(100%);
-      transform: scale(1.04);
-    }
-
-    /* Editorial Meta Beneath Photo */
-    .photo-caption {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding-top: 0.9rem;
-      font-size: 0.72rem;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--muted-gray);
-    }
-
-    .photo-caption .crimson-accent {
-      color: var(--crimson-glow);
-      font-weight: 600;
-    }
-
-    /* Inline Instant Photo Switcher Buttons */
-    .upload-trigger-btn {
-      background: rgba(255, 255, 255, 0.08);
-      color: var(--stark-chalk);
-      border: 1px solid var(--border-gray);
-      padding: 0.3rem 0.65rem;
-      border-radius: 3px;
-      font-size: 0.65rem;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-    .upload-trigger-btn:hover {
-      background: var(--dark-crimson);
-      border-color: var(--dark-crimson);
-    }
-
-    /* ==========================================================
-       GAME SECTION: THE NOIR DETECTIVE ENVELOPE
-       ========================================================== */
-    .game-section {
-      max-width: 950px;
-      margin: 4rem auto 6rem;
-      padding: 0 5vw;
-    }
-
-    .dossier-box {
-      background: linear-gradient(180deg, #121212 0%, #0b0b0b 100%);
-      border: 1px solid var(--border-gray);
-      border-top: 3px solid var(--dark-crimson);
-      border-radius: 6px;
-      padding: 3rem 2.5rem;
-      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.75);
-      position: relative;
-    }
-
-    .dossier-header {
-      text-align: center;
-      margin-bottom: 2.5rem;
-    }
-
-    .dossier-title {
-      font-family: var(--font-serif);
-      font-size: clamp(1.8rem, 4vw, 2.6rem);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      margin-bottom: 0.5rem;
-    }
-
-    .dossier-subtitle {
-      color: var(--muted-gray);
-      font-size: 0.82rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-    }
-
-    /* Clue Step Progress Tracker */
-    .case-steps {
-      display: flex;
-      justify-content: center;
-      gap: 1.5rem;
-      margin-bottom: 2rem;
-    }
-
-    .step-pill {
-      font-size: 0.72rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      padding: 0.4rem 0.9rem;
-      border: 1px solid var(--border-gray);
-      color: var(--muted-gray);
-      border-radius: 999px;
-      transition: all 0.3s ease;
-    }
-
-    .step-pill.active {
-      border-color: var(--crimson-glow);
-      color: var(--stark-chalk);
-      background: rgba(153, 0, 17, 0.25);
-    }
-
-    .step-pill.completed {
-      border-color: var(--dark-crimson);
-      background: var(--dark-crimson);
-      color: var(--stark-chalk);
-    }
-
-    /* Clue Question Card */
-    .clue-stage {
-      background: #161616;
-      border: 1px solid var(--border-gray);
-      padding: 2rem;
-      border-radius: 4px;
-      margin-bottom: 2rem;
-      transition: all 0.3s ease;
-    }
-
-    .clue-label {
-      font-size: 0.75rem;
-      color: var(--crimson-glow);
-      text-transform: uppercase;
-      letter-spacing: 0.25em;
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-    }
-
-    .clue-question {
-      font-family: var(--font-serif);
-      font-size: 1.35rem;
-      margin-bottom: 1.5rem;
-      color: #ebebeb;
-    }
-
-    .options-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 0.8rem;
-    }
-
-    .option-btn {
-      background: #0d0d0d;
-      border: 1px solid var(--border-gray);
-      color: var(--stark-chalk);
-      padding: 1rem 1.4rem;
-      font-family: var(--font-sans);
-      font-size: 0.88rem;
-      text-align: left;
-      cursor: pointer;
-      border-radius: 3px;
-      transition: all 0.25s ease;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .option-btn:hover {
-      border-color: var(--dark-crimson);
-      background: #1a1012;
-      transform: translateX(4px);
-    }
-
-    /* ==========================================================
-       WAX-SEALED ENVELOPE & LETTER CONTAINER
-       ========================================================== */
-    .envelope-wrapper {
-      display: none;
-      text-align: center;
-      animation: fadeIn 0.6s forwards;
-      margin-top: 1rem;
-    }
-
-    .wax-seal-btn {
-      width: 90px;
-      height: 90px;
-      background: radial-gradient(circle, #c41527 30%, #75000c 90%);
-      border-radius: 50%;
-      border: 2px solid #ff4d61;
-      color: #fff;
-      display: inline-flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      box-shadow: 0 0 25px rgba(230, 25, 45, 0.55), inset 0 0 10px rgba(0,0,0,0.4);
-      transition: all 0.4s ease;
-      animation: heartbeat 2s infinite ease-in-out;
-      margin: 1.5rem auto;
-      user-select: none;
-    }
-
-    .wax-seal-btn:hover {
-      transform: scale(1.08);
-      box-shadow: 0 0 35px rgba(230, 25, 45, 0.85);
-    }
-
-    @keyframes heartbeat {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-    }
-
-    /* Confidential Sliding Letter */
-    .noir-letter {
-      display: none;
-      background: var(--parchment);
-      border: 1px solid #3d352e;
-      border-left: 4px solid var(--crimson-glow);
-      padding: 2.8rem 2.2rem;
-      border-radius: 4px;
-      margin-top: 2rem;
-      text-align: left;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9);
-      animation: letterSlideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    }
-
-    @keyframes letterSlideUp {
-      from { opacity: 0; transform: translateY(40px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .letter-header {
-      font-size: 0.72rem;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--crimson-glow);
-      border-bottom: 1px solid #2d2620;
-      padding-bottom: 0.6rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .letter-body {
-      font-family: var(--font-serif);
-      font-size: 1.25rem;
-      line-height: 1.8;
-      color: #ede9e3;
-      font-style: italic;
-      margin-bottom: 2rem;
-    }
-
-    .letter-signoff {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      font-family: var(--font-sans);
-      font-size: 0.82rem;
-      color: var(--muted-gray);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-    }
-
-    .letter-signoff .stamp {
-      color: var(--dark-crimson);
-      border: 1px solid var(--dark-crimson);
-      padding: 0.3rem 0.8rem;
-      font-weight: 700;
-      font-size: 0.7rem;
-      transform: rotate(-4deg);
-    }
-
-    /* ==========================================================
-       FOOTER
-       ========================================================== */
-    footer {
-      border-top: 1px solid var(--border-gray);
-      padding: 2.5rem 5vw;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 0.75rem;
-      color: var(--muted-gray);
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* ==========================================================
-       RESPONSIVE DESIGN (HP LAPTOP & REALME NARZO / ANDROID)
-       ========================================================== */
-    /* Mobile Screen Optimization (~360px - 768px for Narzo) */
-    @media (max-width: 768px) {
-      header {
-        padding: 1rem 4vw;
-      }
-
-      .massive-headline {
-        font-size: 2.85rem;
-        line-height: 1.02;
-      }
-
-      /* Stack overlapping photos into a chic vertical lookbook */
-      .grid-duo {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-      }
-
-      .photo-frame.secondary {
-        margin-top: -1rem;
-        transform: translateX(0);
-      }
-
-      .photo-frame.secondary:hover {
-        transform: translateY(-5px);
-      }
-
-      .photo-frame.primary .photo-container {
-        height: 380px;
-      }
-
-      .photo-frame.secondary .photo-container {
-        height: 320px;
-      }
-
-      .dossier-box {
-        padding: 2rem 1.2rem;
-      }
-
-      .case-steps {
-        gap: 0.5rem;
-      }
-
-      .step-pill {
-        font-size: 0.65rem;
-        padding: 0.3rem 0.6rem;
-      }
-
-      .clue-stage {
-        padding: 1.4rem;
-      }
-
-      .clue-question {
-        font-size: 1.15rem;
-      }
-
-      .noir-letter {
-        padding: 1.8rem 1.2rem;
-      }
-
-      .letter-body {
-        font-size: 1.05rem;
-        line-height: 1.6;
-      }
-
-      footer {
-        flex-direction: column;
-        gap: 1rem;
-        text-align: center;
-      }
-    }
-  </style>
+  <!-- External Stylesheet -->
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <!-- Petals Canvas -->
+  <!-- Ambient Falling Crimson Petals Canvas -->
   <canvas id="petalsCanvas"></canvas>
 
-  <!-- Navigation -->
+  <!-- Editorial Top Navigation -->
   <header>
     <div class="brand-logo">Parisian Noir</div>
     <div class="header-actions">
@@ -610,23 +26,23 @@
     </div>
   </header>
 
-  <!-- Hero Section -->
-  <section class="hero">
+  <!-- Main Hero Section -->
+  <main class="hero">
     <div class="meta-tagline">Haute Couture Collection &bull; Issue MMXXVI</div>
     <h1 class="massive-headline">
       Effortless <br />
       <span class="headline-italic">Charm & Allure.</span>
     </h1>
-  </section>
+  </main>
 
-  <!-- Overlapping Photo Grid (2 Slots) -->
+  <!-- Artistic Overlapping Photo Grid (2 Slots) -->
   <section class="photo-section">
     <div class="grid-duo">
 
-      <!-- ====================================================
+      <!-- ==============================================
            PHOTO SLOT 1: Primary Portrait
-           Click "Upload Photo" or replace the default image url
-           ==================================================== -->
+           Change 'src' to your image file (e.g., her-1.jpg)
+           ============================================== -->
       <div class="photo-frame primary">
         <div class="photo-container">
           <img 
@@ -636,22 +52,15 @@
           />
         </div>
         <div class="photo-caption">
-          <div>
-            <span>Plate 01 &bull; </span>
-            <span class="crimson-accent">Silhouette</span>
-          </div>
-          <!-- Upload Button for Local Photos -->
-          <label class="upload-trigger-btn">
-            Replace Pic
-            <input type="file" accept="image/*" style="display:none" onchange="loadPhoto(event, 'previewPhoto1')">
-          </label>
+          <span>Plate 01 &bull; <span class="crimson-accent">Silhouette</span></span>
+          <span class="plate-tag">[ 35MM NOIR ]</span>
         </div>
       </div>
 
-      <!-- ====================================================
-           PHOTO SLOT 2: Overlapping Frame
-           Click "Upload Photo" or replace the default image url
-           ==================================================== -->
+      <!-- ==============================================
+           PHOTO SLOT 2: Overlapping Secondary Frame
+           Change 'src' to your image file (e.g., her-2.jpg)
+           ============================================== -->
       <div class="photo-frame secondary">
         <div class="photo-container">
           <img 
@@ -661,24 +70,15 @@
           />
         </div>
         <div class="photo-caption">
-          <div>
-            <span>Plate 02 &bull; </span>
-            <span class="crimson-accent">Radiance</span>
-          </div>
-          <!-- Upload Button for Local Photos -->
-          <label class="upload-trigger-btn">
-            Replace Pic
-            <input type="file" accept="image/*" style="display:none" onchange="loadPhoto(event, 'previewPhoto2')">
-          </label>
+          <span>Plate 02 &bull; <span class="crimson-accent">Radiance</span></span>
+          <span class="plate-tag">[ ARCHIVE 02 ]</span>
         </div>
       </div>
 
     </div>
   </section>
 
-  <!-- ====================================================
-       GAME 3: THE NOIR DETECTIVE ENVELOPE
-       ==================================================== -->
+  <!-- GAME: THE NOIR DETECTIVE ENVELOPE -->
   <section class="game-section">
     <div class="dossier-box">
       
@@ -687,7 +87,7 @@
         <p class="dossier-subtitle">Inspect the 3 classified clues to unlock the wax-sealed envelope</p>
       </div>
 
-      <!-- Clue Steps Indicator -->
+      <!-- Clue Steps Progress Indicator -->
       <div class="case-steps">
         <span class="step-pill active" id="stepPill1">Clue 01</span>
         <span class="step-pill" id="stepPill2">Clue 02</span>
@@ -701,21 +101,21 @@
         <div class="options-grid" id="optionsContainer"></div>
       </div>
 
-      <!-- Wax Sealed Envelope Trigger (Appears after 3 clues) -->
+      <!-- Wax Sealed Envelope Trigger -->
       <div class="envelope-wrapper" id="envelopeWrapper">
-        <p style="text-transform: uppercase; letter-spacing: 0.2em; font-size: 0.8rem; color: var(--muted-gray); margin-bottom: 0.5rem;">
+        <p class="envelope-ready-text">
           All Clues Authenticated &bull; Wax Seal Ready
         </p>
         <div class="wax-seal-btn" id="waxSealBtn" title="Click to break the wax seal">
-          <span style="font-size: 1.4rem;">✉</span>
-          <span style="font-size: 0.62rem; letter-spacing: 0.15em; font-weight: 700;">BREAK SEAL</span>
+          <span class="seal-icon">✉</span>
+          <span class="seal-text">BREAK SEAL</span>
         </div>
-        <p style="font-size: 0.72rem; color: var(--crimson-glow); letter-spacing: 0.15em; text-transform: uppercase;">
+        <p class="envelope-hint">
           Tap the crimson wax to open the letter
         </p>
       </div>
 
-      <!-- The Revealed Letter -->
+      <!-- Confidential Sliding Letter -->
       <div class="noir-letter" id="noirLetter">
         <div class="letter-header">Confidential &bull; Only for Her Eyes</div>
         <div class="letter-body">
@@ -738,232 +138,7 @@
     <div>Parisian Noir &bull; MMXXVI</div>
   </footer>
 
-  <!-- ==========================================================
-       JAVASCRIPT: GAME ENGINE, AUDIO SYNTH, & PETALS CANVAS
-       ========================================================== -->
-  <script>
-    /* 1. PHOTO REPLACEMENT VIA LOCAL PICKER */
-    function loadPhoto(event, imgElementId) {
-      const file = event.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          document.getElementById(imgElementId).src = e.target.result;
-        };
-        reader.readAsDataURL(file);
-      }
-    }
-
-    /* 2. PROCEDURAL SOUND SYNTHESIS (Zero External Audio Files Needed) */
-    const AudioContext = window.AudioContext || window.webkitAudioContext;
-    let audioCtx = null;
-
-    function playSound(type) {
-      try {
-        if (!audioCtx) audioCtx = new AudioContext();
-        if (audioCtx.state === 'suspended') audioCtx.resume();
-
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-
-        const now = audioCtx.currentTime;
-
-        if (type === 'tick') {
-          // Typewriter click
-          osc.type = 'triangle';
-          osc.frequency.setValueAtTime(450, now);
-          osc.frequency.exponentialRampToValueAtTime(150, now + 0.04);
-          gain.gain.setValueAtTime(0.15, now);
-          gain.gain.exponentialRampToValueAtTime(0.01, now + 0.04);
-          osc.start(now);
-          osc.stop(now + 0.04);
-        } else if (type === 'seal') {
-          // Deep wax crack & chime
-          osc.type = 'sine';
-          osc.frequency.setValueAtTime(260, now);
-          osc.frequency.exponentialRampToValueAtTime(520, now + 0.35);
-          gain.gain.setValueAtTime(0.3, now);
-          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.7);
-          osc.start(now);
-          osc.stop(now + 0.7);
-        }
-      } catch (e) {
-        console.log("Audio not supported or waiting for user interaction");
-      }
-    }
-
-    /* 3. DETECTIVE ENVELOPE QUIZ DATA */
-    const detectiveClues = [
-      {
-        label: "Classified Exhibit 01",
-        question: "What is the suspect's most dangerous, room-stopping secret weapon?",
-        options: [
-          "A smile that turns the entire room into full color ✦",
-          "Her effortless sense of elegance & humor",
-          "A laugh that is genuinely 100% contagious"
-        ]
-      },
-      {
-        label: "Classified Exhibit 02",
-        question: "When captured on a 35mm Parisian camera, what stands out most?",
-        options: [
-          "Eyes that hold an entire mystery novel",
-          "An undeniable haute couture aura",
-          "Pure, authentic warmth that cannot be rehearsed ✦"
-        ]
-      },
-      {
-        label: "Classified Exhibit 03",
-        question: "Final Verdict: What is the official case summary?",
-        options: [
-          "Guilty of being completely and effortlessly unforgettable ✦",
-          "Certified 10/10 in both elegance and charm",
-          "All of the above — no doubt about it"
-        ]
-      }
-    ];
-
-    let currentClue = 0;
-    const clueCard = document.getElementById('clueCard');
-    const clueIndexLabel = document.getElementById('clueIndexLabel');
-    const clueQuestionText = document.getElementById('clueQuestionText');
-    const optionsContainer = document.getElementById('optionsContainer');
-    const envelopeWrapper = document.getElementById('envelopeWrapper');
-    const waxSealBtn = document.getElementById('waxSealBtn');
-    const noirLetter = document.getElementById('noirLetter');
-
-    function renderClue(index) {
-      const data = detectiveClues[index];
-      clueIndexLabel.innerText = data.label;
-      clueQuestionText.innerText = data.question;
-      optionsContainer.innerHTML = '';
-
-      data.options.forEach((optText) => {
-        const btn = document.createElement('button');
-        btn.className = 'option-btn';
-        btn.innerHTML = `<span>${optText}</span> <span style="color:var(--dark-crimson);">&rarr;</span>`;
-        btn.onclick = () => selectAnswer(index);
-        optionsContainer.appendChild(btn);
-      });
-
-      // Update pills
-      for (let i = 1; i <= 3; i++) {
-        const pill = document.getElementById(`stepPill${i}`);
-        pill.classList.remove('active');
-        if (i - 1 < index) pill.classList.add('completed');
-        if (i - 1 === index) pill.classList.add('active');
-      }
-    }
-
-    function selectAnswer(index) {
-      playSound('tick');
-      if (index < detectiveClues.length - 1) {
-        currentClue++;
-        renderClue(currentClue);
-      } else {
-        // Complete all clues!
-        for (let i = 1; i <= 3; i++) {
-          document.getElementById(`stepPill${i}`).className = 'step-pill completed';
-        }
-        clueCard.style.display = 'none';
-        envelopeWrapper.style.display = 'block';
-      }
-    }
-
-    waxSealBtn.addEventListener('click', () => {
-      playSound('seal');
-      waxSealBtn.style.transform = 'scale(0.85) rotate(15deg)';
-      waxSealBtn.style.opacity = '0.4';
-      waxSealBtn.style.pointerEvents = 'none';
-
-      setTimeout(() => {
-        envelopeWrapper.style.display = 'none';
-        noirLetter.style.display = 'block';
-        noirLetter.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        burstPetals();
-      }, 400);
-    });
-
-    renderClue(0);
-
-    /* 4. FALLING CRIMSON ROSE PETALS CANVAS ENGINE */
-    const canvas = document.getElementById('petalsCanvas');
-    const ctx = canvas.getContext('2d');
-    let width = canvas.width = window.innerWidth;
-    let height = canvas.height = window.innerHeight;
-
-    window.addEventListener('resize', () => {
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = window.innerHeight;
-    });
-
-    const petals = [];
-    const petalColors = ['#990011', '#ba0c2f', '#75000c', '#e6192d'];
-
-    class Petal {
-      constructor(isBurst = false) {
-        this.reset(isBurst);
-      }
-
-      reset(isBurst = false) {
-        this.x = isBurst ? width / 2 + (Math.random() * 200 - 100) : Math.random() * width;
-        this.y = isBurst ? height / 2 + (Math.random() * 100 - 50) : Math.random() * -height * 0.5;
-        this.size = Math.random() * 8 + 6;
-        this.speedY = isBurst ? Math.random() * 3 + 2 : Math.random() * 1.5 + 0.8;
-        this.speedX = Math.random() * 1.2 - 0.6;
-        this.angle = Math.random() * Math.PI * 2;
-        this.angularSpeed = Math.random() * 0.03 - 0.015;
-        this.color = petalColors[Math.floor(Math.random() * petalColors.length)];
-        this.opacity = Math.random() * 0.6 + 0.4;
-      }
-
-      update() {
-        this.y += this.speedY;
-        this.x += Math.sin(this.angle) * 0.8 + this.speedX;
-        this.angle += this.angularSpeed;
-
-        if (this.y > height + 20) {
-          this.reset(false);
-        }
-      }
-
-      draw() {
-        ctx.save();
-        ctx.translate(this.x, this.y);
-        ctx.rotate(this.angle);
-        ctx.beginPath();
-        ctx.ellipse(0, 0, this.size, this.size * 0.55, 0, 0, Math.PI * 2);
-        ctx.fillStyle = this.color;
-        ctx.globalAlpha = this.opacity;
-        ctx.fill();
-        ctx.restore();
-      }
-    }
-
-    // Initialize 25 ambient falling petals
-    for (let i = 0; i < 25; i++) {
-      petals.push(new Petal(false));
-    }
-
-    function burstPetals() {
-      // Add 40 extra petals burst when envelope opens
-      for (let i = 0; i < 40; i++) {
-        petals.push(new Petal(true));
-      }
-    }
-
-    function animatePetals() {
-      ctx.clearRect(0, 0, width, height);
-      petals.forEach(p => {
-        p.update();
-        p.draw();
-      });
-      requestAnimationFrame(animatePetals);
-    }
-
-    animatePetals();
-  </script>
+  <!-- External Script -->
+  <script src="script.js"></script>
 </body>
 </html>

@@ -1,0 +1,593 @@
+/* ==========================================================
+   PARISIAN NOIR DESIGN SYSTEM & VARIABLES
+   ========================================================== */
+:root {
+  --jet-black: #080808;
+  --card-black: #121212;
+  --border-gray: #222222;
+  --border-hover: #3a3a3a;
+  --stark-chalk: #f5f5f3;
+  --muted-gray: #7a7a7a;
+  --dark-crimson: #990011;
+  --crimson-glow: #e6192d;
+  --parchment: #181614;
+  --font-serif: 'Bodoni Moda', 'Playfair Display', serif;
+  --font-sans: 'Plus Jakarta Sans', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  background-color: var(--jet-black);
+  color: var(--stark-chalk);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  min-height: 100vh;
+  line-height: 1.5;
+  position: relative;
+}
+
+/* Ambient Film Texture Overlay */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+  background-size: 28px 28px;
+  pointer-events: none;
+  z-index: 999;
+  opacity: 0.35;
+}
+
+/* Falling Crimson Rose Petals Canvas */
+#petalsCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 90;
+}
+
+/* ==========================================================
+   NAVIGATION BAR
+   ========================================================== */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem 5vw;
+  border-bottom: 1px solid var(--border-gray);
+  background: rgba(8, 8, 8, 0.85);
+  backdrop-filter: blur(12px);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.brand-logo {
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.brand-logo::before {
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--crimson-glow);
+  box-shadow: 0 0 10px var(--crimson-glow);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.badge-crimson {
+  background-color: var(--dark-crimson);
+  color: var(--stark-chalk);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  font-weight: 600;
+  box-shadow: 0 0 14px rgba(153, 0, 17, 0.5);
+}
+
+/* ==========================================================
+   HERO: MASSIVE SERIF HEADLINES
+   ========================================================== */
+.hero {
+  padding: 3.5rem 5vw 1.5rem;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+.meta-tagline {
+  text-transform: uppercase;
+  color: var(--muted-gray);
+  font-size: 0.78rem;
+  letter-spacing: 0.28em;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.meta-tagline::before {
+  content: "";
+  width: 28px;
+  height: 1px;
+  background-color: var(--dark-crimson);
+}
+
+.massive-headline {
+  font-family: var(--font-serif);
+  font-size: clamp(2.8rem, 7.5vw, 6.8rem);
+  line-height: 0.95;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.5rem;
+}
+
+.headline-italic {
+  font-style: italic;
+  color: #dededc;
+  font-weight: 400;
+}
+
+/* ==========================================================
+   ARTISTIC OVERLAPPING PHOTO GRID (2 SLOTS)
+   ========================================================== */
+.photo-section {
+  max-width: 1250px;
+  margin: 1.5rem auto 4rem;
+  padding: 0 5vw;
+}
+
+.grid-duo {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 3.5rem;
+  align-items: center;
+  position: relative;
+}
+
+.photo-frame {
+  position: relative;
+  background: var(--card-black);
+  border: 1px solid var(--border-gray);
+  padding: 12px;
+  border-radius: 4px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.photo-container {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  border-radius: 2px;
+  background-color: #050505;
+}
+
+/* Primary Portrait (Slot 1) */
+.photo-frame.primary {
+  z-index: 2;
+}
+.photo-frame.primary .photo-container {
+  height: 480px;
+}
+
+/* Secondary Overlapping Frame (Slot 2) */
+.photo-frame.secondary {
+  z-index: 3;
+  margin-top: 5rem;
+  transform: translateX(-18%);
+  border-color: #2e2e2e;
+}
+.photo-frame.secondary .photo-container {
+  height: 380px;
+}
+
+/* Filmic Grayscale -> Full Color & Crimson Bloom on Hover */
+.photo-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(100%) contrast(115%) brightness(92%);
+  transition: filter 0.8s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  display: block;
+}
+
+.photo-frame:hover {
+  border-color: var(--dark-crimson);
+  transform: translateY(-8px);
+  box-shadow: 0 25px 50px rgba(153, 0, 17, 0.25);
+}
+
+.photo-frame.secondary:hover {
+  transform: translateX(-18%) translateY(-8px);
+  box-shadow: -15px 25px 50px rgba(153, 0, 17, 0.3);
+}
+
+.photo-frame:hover .photo-container img {
+  filter: grayscale(0%) contrast(105%) brightness(100%);
+  transform: scale(1.04);
+}
+
+/* Editorial Meta Beneath Photo */
+.photo-caption {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 0.9rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted-gray);
+}
+
+.photo-caption .crimson-accent {
+  color: var(--crimson-glow);
+  font-weight: 600;
+}
+
+.plate-tag {
+  color: #555555;
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+}
+
+/* ==========================================================
+   GAME: THE NOIR DETECTIVE ENVELOPE
+   ========================================================== */
+.game-section {
+  max-width: 950px;
+  margin: 4rem auto 6rem;
+  padding: 0 5vw;
+}
+
+.dossier-box {
+  background: linear-gradient(180deg, #121212 0%, #0b0b0b 100%);
+  border: 1px solid var(--border-gray);
+  border-top: 3px solid var(--dark-crimson);
+  border-radius: 6px;
+  padding: 3rem 2.5rem;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.75);
+  position: relative;
+}
+
+.dossier-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.dossier-title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.5rem;
+}
+
+.dossier-subtitle {
+  color: var(--muted-gray);
+  font-size: 0.82rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+/* Clue Step Progress Tracker */
+.case-steps {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.step-pill {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  padding: 0.4rem 0.9rem;
+  border: 1px solid var(--border-gray);
+  color: var(--muted-gray);
+  border-radius: 999px;
+  transition: all 0.3s ease;
+}
+
+.step-pill.active {
+  border-color: var(--crimson-glow);
+  color: var(--stark-chalk);
+  background: rgba(153, 0, 17, 0.25);
+}
+
+.step-pill.completed {
+  border-color: var(--dark-crimson);
+  background: var(--dark-crimson);
+  color: var(--stark-chalk);
+}
+
+/* Clue Question Card */
+.clue-stage {
+  background: #161616;
+  border: 1px solid var(--border-gray);
+  padding: 2rem;
+  border-radius: 4px;
+  margin-bottom: 2rem;
+  transition: all 0.3s ease;
+}
+
+.clue-label {
+  font-size: 0.75rem;
+  color: var(--crimson-glow);
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.clue-question {
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  margin-bottom: 1.5rem;
+  color: #ebebeb;
+}
+
+.options-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.8rem;
+}
+
+.option-btn {
+  background: #0d0d0d;
+  border: 1px solid var(--border-gray);
+  color: var(--stark-chalk);
+  padding: 1rem 1.4rem;
+  font-family: var(--font-sans);
+  font-size: 0.88rem;
+  text-align: left;
+  cursor: pointer;
+  border-radius: 3px;
+  transition: all 0.25s ease;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.option-btn:hover {
+  border-color: var(--dark-crimson);
+  background: #1a1012;
+  transform: translateX(4px);
+}
+
+/* Wax Seal & Envelope Wrapper */
+.envelope-wrapper {
+  display: none;
+  text-align: center;
+  animation: fadeIn 0.6s forwards;
+  margin-top: 1rem;
+}
+
+.envelope-ready-text {
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: 0.8rem;
+  color: var(--muted-gray);
+  margin-bottom: 0.5rem;
+}
+
+.wax-seal-btn {
+  width: 90px;
+  height: 90px;
+  background: radial-gradient(circle, #c41527 30%, #75000c 90%);
+  border-radius: 50%;
+  border: 2px solid #ff4d61;
+  color: #fff;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 0 25px rgba(230, 25, 45, 0.55), inset 0 0 10px rgba(0,0,0,0.4);
+  transition: all 0.4s ease;
+  animation: heartbeat 2s infinite ease-in-out;
+  margin: 1.5rem auto;
+  user-select: none;
+}
+
+.wax-seal-btn:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 35px rgba(230, 25, 45, 0.85);
+}
+
+.seal-icon {
+  font-size: 1.4rem;
+}
+
+.seal-text {
+  font-size: 0.62rem;
+  letter-spacing: 0.15em;
+  font-weight: 700;
+}
+
+.envelope-hint {
+  font-size: 0.72rem;
+  color: var(--crimson-glow);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+/* Confidential Sliding Letter */
+.noir-letter {
+  display: none;
+  background: var(--parchment);
+  border: 1px solid #3d352e;
+  border-left: 4px solid var(--crimson-glow);
+  padding: 2.8rem 2.2rem;
+  border-radius: 4px;
+  margin-top: 2rem;
+  text-align: left;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9);
+  animation: letterSlideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes letterSlideUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.letter-header {
+  font-size: 0.72rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--crimson-glow);
+  border-bottom: 1px solid #2d2620;
+  padding-bottom: 0.6rem;
+  margin-bottom: 1.5rem;
+}
+
+.letter-body {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  line-height: 1.8;
+  color: #ede9e3;
+  font-style: italic;
+  margin-bottom: 2rem;
+}
+
+.letter-signoff {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  color: var(--muted-gray);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.letter-signoff .stamp {
+  color: var(--dark-crimson);
+  border: 1px solid var(--dark-crimson);
+  padding: 0.3rem 0.8rem;
+  font-weight: 700;
+  font-size: 0.7rem;
+  transform: rotate(-4deg);
+}
+
+/* ==========================================================
+   FOOTER
+   ========================================================== */
+footer {
+  border-top: 1px solid var(--border-gray);
+  padding: 2.5rem 5vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.75rem;
+  color: var(--muted-gray);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================================
+   RESPONSIVE DESIGN: HP LAPTOP & REALME NARZO (ANDROID)
+   ========================================================== */
+@media (max-width: 768px) {
+  header {
+    padding: 1rem 4vw;
+  }
+
+  .massive-headline {
+    font-size: 2.85rem;
+    line-height: 1.02;
+  }
+
+  .grid-duo {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .photo-frame.secondary {
+    margin-top: -1rem;
+    transform: translateX(0);
+  }
+
+  .photo-frame.secondary:hover {
+    transform: translateY(-5px);
+  }
+
+  .photo-frame.primary .photo-container {
+    height: 380px;
+  }
+
+  .photo-frame.secondary .photo-container {
+    height: 320px;
+  }
+
+  .dossier-box {
+    padding: 2rem 1.2rem;
+  }
+
+  .case-steps {
+    gap: 0.5rem;
+  }
+
+  .step-pill {
+    font-size: 0.65rem;
+    padding: 0.3rem 0.6rem;
+  }
+
+  .clue-stage {
+    padding: 1.4rem;
+  }
+
+  .clue-question {
+    font-size: 1.15rem;
+  }
+
+  .noir-letter {
+    padding: 1.8rem 1.2rem;
+  }
+
+  .letter-body {
+    font-size: 1.05rem;
+    line-height: 1.6;
+  }
+
+  footer {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+}
